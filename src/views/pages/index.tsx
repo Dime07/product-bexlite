@@ -16,22 +16,22 @@ export const Homepage = ({ products }: { products: ProductType[] }) => {
           </h2>
         </div>
         {/* search form */}
-        <div class="flex justify-center items-center mt-5">
-          <form>
-            <input
-              placeholder="Search"
-              class="border border-grey-200 rounded-md px-2 py-1 mr-4 focus:border-violet-700 outline-none transition-all ease-in-out duration-200"
-            />
-            <button
-              type="submit"
-              class="bg-violet-700 px-3 py-1 rounded-md text-white font-semibold"
-            >
-              Search
-            </button>
-          </form>
+        <div class="flex justify-center items-center mt-5 ">
+          <input
+            name="search"
+            placeholder="Search"
+            class="border border-grey-200 rounded-md px-2 py-1 mr-4 focus:border-violet-700 outline-none w-[300px] mb-5 transition-all ease-in-out duration-200"
+            hx-get="/products/search"
+            hx-target="#product-list"
+            hx-swap="innerHTML"
+            hx-trigger="input changed delay:500ms, search"
+          />
         </div>
 
-        <div class="flex gap-4 flex-row max-w-[1440px] mx-auto">
+        <div
+          id="product-list"
+          class="flex gap-4 flex-row max-w-[1440px] mx-auto"
+        >
           {products.map((product) => (
             <ProductCard product={product} />
           ))}

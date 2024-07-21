@@ -1,13 +1,16 @@
 import { html } from "@elysiajs/html";
-import { Elysia, t } from "elysia";
-import { getHomepageUI } from "./controllers/productControllers";
+import { Elysia } from "elysia";
+import {
+  getHomepageUI,
+  searchProducts,
+} from "./controllers/productControllers";
+import { SearchQuerySchema } from "./types/entity";
 
 const app = new Elysia()
   .use(html())
-  .get("/", getHomepageUI, {
-    query: t.Object({
-      search: t.Optional(t.String()),
-    }),
+  .get("/", getHomepageUI)
+  .get("/products/search", searchProducts, {
+    query: SearchQuerySchema,
   })
   .listen(3000);
 
