@@ -9,6 +9,7 @@ import { Homepage } from "../views/pages";
 import ProductCard from "../components/productCard";
 import { ProductsPage } from "../views/pages/products";
 import { AddProductsPage } from "../views/pages/products/add";
+import Cart from "../components/cart";
 
 export const getProducts = async () => {
   const products = client.query("SELECT * FROM product").all() as ProductType[];
@@ -47,6 +48,16 @@ export const addProduct = async ({ body, redirect }: Context) => {
     .run(name, price);
 
   return redirect("/products");
+};
+
+export const getProductCartCount = async () => {
+  const productsTotal = client
+    .query("SELECT SUM(total) AS grand_total FROM cart")
+    .get() as { grand_total: number };
+
+  const total = productsTotal.grand_total ?? 0;
+
+  return <Cart total={total} />;
 };
 
 export const getHomePage = async () => {

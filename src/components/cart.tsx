@@ -1,6 +1,6 @@
 const Cart = ({ total }: { total: number }) => {
   return (
-    <div id="product-cart" class="relative">
+    <div class="relative">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

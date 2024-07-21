@@ -4,6 +4,7 @@ import {
   addProduct,
   getAddProductsPage,
   getHomePage,
+  getProductCartCount,
   getProductsPage,
   searchProducts,
 } from "./controllers/productControllers";
@@ -24,6 +25,7 @@ const app = new Elysia()
       .post("/add", addProduct, {
         body: AddProductSchema,
       })
+      .get("/cart/count", getProductCartCount)
   )
 
   .listen(3000);
