@@ -1,6 +1,15 @@
 const Cart = ({ total }: { total: number }) => {
   return (
-    <div class="relative">
+    // jadi hx swap oob itu untuk mengganti element yang sudah ada di dalam DOM, dan di response bisa diluar targetnya
+    <div
+      class="relative"
+      id="product-cart"
+      hx-get="/api/products/cart/count"
+      hx-target="#product-cart"
+      hx-swap="innerHtml"
+      hx-trigger="load"
+      hx-swap-oob="true"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

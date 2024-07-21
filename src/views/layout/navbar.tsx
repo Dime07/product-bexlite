@@ -12,13 +12,7 @@ const Navbar = () => {
           <li>
             <a href="/products">My Products</a>
           </li>
-          <li
-            id="product-cart"
-            hx-get="/api/products/cart/count"
-            hx-target="#product-cart"
-            hx-swap="innerHtml"
-            hx-trigger="load"
-          >
+          <li>
             <Cart total={2} />
           </li>
         </ul>

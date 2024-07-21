@@ -10,7 +10,7 @@ client.exec(`
 
     CREATE TABLE IF NOT EXISTS cart (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        product_id INTEGER NOT NULL,
+        product_id INTEGER NOT NULL UNIQUE,
         total INTEGER NOT NULL
     );
 `);

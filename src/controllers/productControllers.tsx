@@ -1,7 +1,9 @@
 import { Context } from "elysia";
 import { client } from "../models/client";
 import {
+  AddProductToCartType,
   AddProductType,
+  CartType,
   ProductType,
   SearchQuerySchema,
 } from "../types/entity";
@@ -58,6 +60,29 @@ export const getProductCartCount = async () => {
   const total = productsTotal.grand_total ?? 0;
 
   return <Cart total={total} />;
+};
+
+export const addProductToCart = async ({ body }: Context) => {
+  const { product_id } = body as AddProductToCartType;
+
+  client
+    .query(
+      "INSERT INTO cart (product_id, total) VALUES (?, ?) ON CONFLICT(product_id) DO UPDATE SET total = total + 1"
+    )
+    .run(product_id, 1);
+
+  const productsTotal = client
+    .query("SELECT SUM(total) AS grand_total FROM cart")
+    .get() as { grand_total: number };
+
+  const total = productsTotal.grand_total ?? 0;
+
+  return (
+    <>
+      added to cart
+      <Cart total={total} />
+    </>
+  );
 };
 
 export const getHomePage = async () => {

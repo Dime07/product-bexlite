@@ -6,6 +6,12 @@ export type ProductType = {
   price: number;
 };
 
+export type CartType = {
+  id: number;
+  product_id: number;
+  total: number;
+};
+
 export const SearchQuerySchema = t.Object({
   search: t.String(),
 });
@@ -18,3 +24,9 @@ export const AddProductSchema = t.Object({
 });
 
 export type AddProductType = Static<typeof AddProductSchema>;
+
+export const AddProductToCartSchema = t.Object({
+  product_id: t.String(),
+});
+
+export type AddProductToCartType = Static<typeof AddProductToCartSchema>;

@@ -2,13 +2,18 @@ import { html } from "@elysiajs/html";
 import { Elysia } from "elysia";
 import {
   addProduct,
+  addProductToCart,
   getAddProductsPage,
   getHomePage,
   getProductCartCount,
   getProductsPage,
   searchProducts,
 } from "./controllers/productControllers";
-import { AddProductSchema, SearchQuerySchema } from "./types/entity";
+import {
+  AddProductSchema,
+  AddProductToCartSchema,
+  SearchQuerySchema,
+} from "./types/entity";
 
 const app = new Elysia()
   .use(html())
@@ -24,6 +29,9 @@ const app = new Elysia()
       })
       .post("/add", addProduct, {
         body: AddProductSchema,
+      })
+      .post("/cart/add", addProductToCart, {
+        body: AddProductToCartSchema,
       })
       .get("/cart/count", getProductCartCount)
   )
