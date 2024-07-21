@@ -8,7 +8,7 @@ export const Homepage = ({ products }: { products: ProductType[] }) => {
       <main class="px-10 pt-10">
         <div class="space-y-2">
           <h1 class="text-2xl font-medium text-center">
-            Welcome to your Product Catalogue
+            Welcome to Product Catalogue
           </h1>
           <h2 class="text-sm text-center">
             This is a simple product catalogue app built with htmx and
@@ -21,7 +21,7 @@ export const Homepage = ({ products }: { products: ProductType[] }) => {
             name="search"
             placeholder="Search"
             class="border border-grey-200 rounded-md px-2 py-1 mr-4 focus:border-violet-700 outline-none w-[300px] mb-5 transition-all ease-in-out duration-200"
-            hx-get="/products/search"
+            hx-get="/api/products/search"
             hx-target="#product-list"
             hx-swap="innerHTML"
             hx-trigger="input changed delay:500ms, search"

@@ -11,3 +11,10 @@ export const SearchQuerySchema = t.Object({
 });
 
 export type SearchQuerySchema = Static<typeof SearchQuerySchema>;
+
+export const AddProductSchema = t.Object({
+  name: t.String(),
+  price: t.String(),
+});
+
+export type AddProductType = Static<typeof AddProductSchema>;

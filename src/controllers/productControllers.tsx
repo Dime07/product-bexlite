@@ -1,8 +1,14 @@
 import { Context } from "elysia";
 import { client } from "../models/client";
-import { ProductType, SearchQuerySchema } from "../types/entity";
+import {
+  AddProductType,
+  ProductType,
+  SearchQuerySchema,
+} from "../types/entity";
 import { Homepage } from "../views/pages";
 import ProductCard from "../components/productCard";
+import { ProductsPage } from "../views/pages/products";
+import { AddProductsPage } from "../views/pages/products/add";
 
 export const getProducts = async () => {
   const products = client.query("SELECT * FROM product").all() as ProductType[];
@@ -33,8 +39,28 @@ export const searchProducts = async ({ query }: Context) => {
   );
 };
 
-export const getHomepageUI = async () => {
+export const addProduct = async ({ body, redirect }: Context) => {
+  const { name, price } = body as AddProductType;
+
+  client
+    .query("INSERT INTO product (name, price) VALUES (?, ?)")
+    .run(name, price);
+
+  return redirect("/products");
+};
+
+export const getHomePage = async () => {
   const products = await getProducts();
 
   return <Homepage products={products} />;
+};
+
+export const getProductsPage = async () => {
+  const products = await getProducts();
+
+  return <ProductsPage products={products} />;
+};
+
+export const getAddProductsPage = async () => {
+  return <AddProductsPage />;
 };
