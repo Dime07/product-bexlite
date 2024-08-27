@@ -40,4 +40,6 @@ yarn-error.log*
 **/*.log
 package-lock.json
 **/*.bun
-**/*.db
+
+# database
+models/*.db
