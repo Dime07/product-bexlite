@@ -15,6 +15,7 @@ export const Homepage = ({ products }: { products: ProductType[] }) => {
             TailwindCSS.
           </h2>
         </div>
+
         {/* search form */}
         <div class="flex justify-center items-center mt-5 ">
           <input
@@ -30,7 +31,7 @@ export const Homepage = ({ products }: { products: ProductType[] }) => {
 
         <div
           id="product-list"
-          class="flex gap-4 flex-row max-w-[1440px] mx-auto"
+          class="grid grid-cols-4 gap-6 max-w-[1440px] mx-auto"
         >
           {products.map((product) => (
             <ProductCard product={product} />

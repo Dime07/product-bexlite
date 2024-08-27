@@ -3,14 +3,10 @@ import { client } from "../models/client";
 import {
   AddProductToCartType,
   AddProductType,
-  CartType,
   ProductType,
   SearchQuerySchema,
 } from "../types/entity";
-import { Homepage } from "../views/pages";
 import ProductCard from "../components/productCard";
-import { ProductsPage } from "../views/pages/products";
-import { AddProductsPage } from "../views/pages/products/add";
 import Cart from "../components/cart";
 
 export const getProducts = async () => {
@@ -52,6 +48,46 @@ export const addProduct = async ({ body, redirect }: Context) => {
   return redirect("/products");
 };
 
+export const getProductById = async (id: string) => {
+  const product = client
+    .query("SELECT * FROM product WHERE id = ?")
+    .get(id) as ProductType;
+
+  return product;
+};
+
+export const postUpdateProductById = async ({
+  body,
+  params,
+  redirect,
+}: Context) => {
+  const { name, price } = body as AddProductType;
+  const { id } = params;
+
+  console.log(name, price, id);
+
+  client
+    .query("UPDATE product SET name = ?, price = ? WHERE id = ?")
+    .run(name, price, id);
+
+  return redirect("/products");
+};
+
+export const deleteProductById = async ({ params }: Context) => {
+  const { id } = params;
+  client.query("DELETE FROM product WHERE id = ?").run(id);
+
+  const products = await getProducts();
+
+  return (
+    <>
+      {products.map((product) => (
+        <ProductCard product={product} adminMode />
+      ))}
+    </>
+  );
+};
+
 export const getProductCartCount = async () => {
   const productsTotal = client
     .query("SELECT SUM(total) AS grand_total FROM cart")
@@ -83,20 +119,4 @@ export const addProductToCart = async ({ body }: Context) => {
       <Cart total={total} />
     </>
   );
-};
-
-export const getHomePage = async () => {
-  const products = await getProducts();
-
-  return <Homepage products={products} />;
-};
-
-export const getProductsPage = async () => {
-  const products = await getProducts();
-
-  return <ProductsPage products={products} />;
-};
-
-export const getAddProductsPage = async () => {
-  return <AddProductsPage />;
 };

@@ -13,7 +13,7 @@ const Navbar = () => {
             <a href="/products">My Products</a>
           </li>
           <li>
-            <Cart total={2} />
+            <Cart total={0} />
           </li>
         </ul>
       </div>

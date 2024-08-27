@@ -1,12 +1,11 @@
 import { html } from "@elysiajs/html";
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import {
   addProduct,
   addProductToCart,
-  getAddProductsPage,
-  getHomePage,
+  deleteProductById,
   getProductCartCount,
-  getProductsPage,
+  postUpdateProductById,
   searchProducts,
 } from "./controllers/productControllers";
 import {
@@ -14,6 +13,12 @@ import {
   AddProductToCartSchema,
   SearchQuerySchema,
 } from "./types/entity";
+import {
+  getAddProductsPage,
+  getEditProductsPage,
+  getHomePage,
+  getProductsPage,
+} from "./controllers/productUIControllers";
 
 const app = new Elysia()
   .use(html())
@@ -21,6 +26,9 @@ const app = new Elysia()
   .get("/", getHomePage)
   .get("/products", getProductsPage)
   .get("/products/add", getAddProductsPage)
+  .get("/products/edit/:id", getEditProductsPage, {
+    params: t.Object({ id: t.String() }),
+  })
   // api routes
   .group("/api/products", (app) =>
     app
@@ -34,6 +42,13 @@ const app = new Elysia()
         body: AddProductToCartSchema,
       })
       .get("/cart/count", getProductCartCount)
+      .post("/edit/:id", postUpdateProductById, {
+        params: t.Object({ id: t.String() }),
+        body: AddProductSchema,
+      })
+      .delete("/delete/:id", deleteProductById, {
+        params: t.Object({ id: t.String() }),
+      })
   )
 
   .listen(3000);

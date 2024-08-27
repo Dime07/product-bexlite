@@ -44,9 +44,12 @@ export const ProductsPage = ({ products }: { products: ProductType[] }) => {
           </form>
         </div>
 
-        <div id="product-list" class="flex gap-4 flex-row">
+        <div
+          id="product-list"
+          class="grid grid-cols-4 gap-6 max-w-[1440px] mx-auto"
+        >
           {products.map((product) => (
-            <ProductCard product={product} />
+            <ProductCard product={product} adminMode />
           ))}
         </div>
       </main>
