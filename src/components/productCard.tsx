@@ -23,6 +23,7 @@ const ProductCard = ({
           >
             Edit
           </a>
+
           <a
             hx-delete={`/api/products/delete/${product.id}`}
             hx-target={`#product-list`}

@@ -42,4 +42,4 @@ package-lock.json
 **/*.bun
 
 # database
-models/*.db
+/models/*.db
